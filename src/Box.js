@@ -175,7 +175,16 @@ define([
 	Box.prototype.doOnScreen = function(torf) {
 		if(torf!=undefined && this.isOnScreen !== torf){
 			this.isOnScreen=torf;
-			if(torf && !this.isLoaded)this.$moneyShot.attr('src',this.model.imgUrl);
+			if(torf && !this.isLoaded) {
+				if (this.$moneyShot.length > 1) {
+					this.$moneyShot.each(function(i){
+						$(this).attr('src', $(this).attr('data-img'));
+					});
+				}
+				else {
+					this.$moneyShot.attr('src',this.model.imgUrl);
+				}
+			}
 			var c = this.e.classList, d = this.e.style.display;
 			if(torf){
 				if(!this.hasEntered){
